@@ -1,13 +1,13 @@
-import React, {Component} from "react";
+import React from "react";
 
-export class NoteSearch extends Component {
-	render() {
-		return (
-			<div className="note-search">
-				<input type="text" placeholder="Cari Catatan" />
-			</div>
-		);
-	}
-}
-
-export default NoteSearch;
+export const NoteSearch = ({onSearch}) => {
+	const onSearchChange = (e) => {
+		onSearch(e.target.value);
+		console.log(e.target.value);
+	};
+	return (
+		<div className="note-search">
+			<input type="text" placeholder="Cari Catatan" onChange={onSearchChange} />
+		</div>
+	);
+};

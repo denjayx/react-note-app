@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import Header from "./Header";
-import NoteInput from "./NoteInput";
 import NoteList from "./NoteList";
 import {getInitialData, showFormattedDate} from "../utils";
 import NoteArchived from "./NoteArchived";
+import {NoteInput} from "./NoteInput";
 
 export class NoteApp extends Component {
 	constructor(props) {
@@ -13,6 +13,8 @@ export class NoteApp extends Component {
 		};
 		this.onDeleteHandler = this.onDeleteHandler.bind(this);
 		this.onArchiveHandler = this.onArchiveHandler.bind(this);
+		this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
+		this.onSearchHandler = this.onSearchHandler.bind(this);
 	}
 
 	onDeleteHandler(id) {
@@ -32,12 +34,42 @@ export class NoteApp extends Component {
 		});
 	}
 
+	onAddNoteHandler({title, body}) {
+		this.setState((prevState) => {
+			return {
+				notes: [
+					...prevState.notes,
+					{
+						id: +new Date(),
+						title: title,
+						body: body,
+						createdAt: Date(),
+						archived: false,
+					},
+				],
+			};
+		});
+	}
+
+	onSearchHandler(keyword) {
+		if (keyword.length !== 0 && keyword.trim() !== "") {
+			const filteredNotes = this.state.notes.filter((note) => note.title.toLowerCase().includes(keyword.toLowerCase()));
+			this.setState({
+				notes: filteredNotes,
+			});
+		} else {
+			this.setState({
+				notes: getInitialData(),
+			});
+		}
+	}
+
 	render() {
 		return (
 			<div className="note-app">
-				<Header />
+				<Header onSearch={this.onSearchHandler} />
 				<div className="note-app__body">
-					<NoteInput />
+					<NoteInput addNote={this.onAddNoteHandler} />
 					<NoteList notes={this.state.notes} showFormattedDate={showFormattedDate} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} />
 					<NoteArchived notes={this.state.notes} showFormattedDate={showFormattedDate} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} />
 				</div>

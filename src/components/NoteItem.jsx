@@ -14,7 +14,7 @@ const NoteItem = ({id, title, body, createdAt, archived, showFormattedDate, onDe
 					Delete
 				</button>
 				<button onClick={() => onArchive(id)} className="note-item__archive-button">
-					Arsipkan
+					{archived ? "Batalkan Arsip" : "Arsipkan"}
 				</button>
 			</div>
 		</div>
