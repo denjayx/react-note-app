@@ -23,8 +23,8 @@ function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/add" element={<AddPage />} />
           <Route path="/archived" element={<ArchivedPage />} />
+          <Route path="/add" element={<AddPage />} />
           <Route path="/notes/:id" element={<DetailPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

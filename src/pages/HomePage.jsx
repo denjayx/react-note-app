@@ -4,6 +4,20 @@ import NoteList from "../components/NoteList";
 import { getActiveNotes } from "../utils/local-data";
 import { NavLink } from "react-router-dom";
 import { BiNote } from "react-icons/bi";
+import { useSearchParams } from "react-router-dom";
+
+function HomePageWrapper() {
+  const [searchParam, setSearchParam] = useSearchParams();
+  const keyword = searchParam.get("keyword");
+
+  function changeSearchParam(keyword) {
+    setSearchParam({ keyword });
+  }
+
+  return (
+    <HomePage defaultKeyword={keyword} keywordChange={changeSearchParam} />
+  );
+}
 
 export class HomePage extends Component {
   constructor(props) {
@@ -11,16 +25,35 @@ export class HomePage extends Component {
 
     this.state = {
       notes: getActiveNotes(),
+      keyword: props.defaultKeyword || "",
     };
   }
+
+  onKeywordChangeHandler = (keyword) => {
+    this.setState(() => {
+      return {
+        keyword,
+      };
+    });
+
+    this.props.keywordChange(keyword);
+  };
   render() {
+    const notes = this.state.notes.filter((note) => {
+      return note.title
+        .toLowerCase()
+        .includes(this.state.keyword.toLowerCase());
+    });
     return (
       <section>
-        <SearchBar />
+        <SearchBar
+          keyword={this.state.keyword}
+          keywordChange={this.onKeywordChangeHandler}
+        />
         <h2 className="text-2xl mt-8">Catatan Aktif</h2>
         <div className="mt-8">
-          {this.state.notes.length !== 0 ? (
-            <NoteList notes={this.state.notes} />
+          {notes.length !== 0 ? (
+            <NoteList notes={notes} />
           ) : (
             <p>Tidak ada catatan</p>
           )}
@@ -37,4 +70,4 @@ export class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default HomePageWrapper;

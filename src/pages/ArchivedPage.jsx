@@ -3,6 +3,21 @@ import { getArchivedNotes } from "../utils/local-data";
 import { NavLink } from "react-router-dom";
 import NoteList from "../components/NoteList";
 import { BiNote } from "react-icons/bi";
+import { useSearchParams } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+
+function NoteArchivedWrapper() {
+  const [searchParam, setSearchParam] = useSearchParams();
+  const keyword = searchParam.get("keyword");
+
+  function changeSearchParam(keyword) {
+    setSearchParam({ keyword });
+  }
+
+  return (
+    <NoteArchived defaultKeyword={keyword} keywordChange={changeSearchParam} />
+  );
+}
 
 export class NoteArchived extends Component {
   constructor(props) {
@@ -10,15 +25,37 @@ export class NoteArchived extends Component {
 
     this.state = {
       notes: getArchivedNotes(),
+      keyword: props.defaultKeyword || "",
     };
   }
+
+  onKeywordChangeHandler = (keyword) => {
+    this.setState(() => {
+      return {
+        keyword,
+      };
+    });
+
+    this.props.keywordChange(keyword);
+  };
+
   render() {
+    const notes = this.state.notes.filter((note) => {
+      return note.title
+        .toLowerCase()
+        .includes(this.state.keyword.toLowerCase());
+    });
+
     return (
       <section>
+        <SearchBar
+          keyword={this.state.keyword}
+          keywordChange={this.onKeywordChangeHandler}
+        />
         <h2 className="text-2xl mt-8">Arsip Catatan</h2>
         <div className="mt-8">
-          {this.state.notes.length !== 0 ? (
-            <NoteList notes={this.state.notes} />
+          {notes.length !== 0 ? (
+            <NoteList notes={notes} />
           ) : (
             <p>Tidak ada catatan diarsipkan</p>
           )}
@@ -35,4 +72,4 @@ export class NoteArchived extends Component {
   }
 }
 
-export default NoteArchived;
+export default NoteArchivedWrapper;
