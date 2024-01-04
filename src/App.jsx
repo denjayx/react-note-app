@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import AddPage from "./pages/AddPage";
 import DetailPage from "./pages/DetailPage";
 import ErrorPage from "./pages/ErrorPage";
-import { NoteArchived } from "./components/NoteArchived";
+import ArchivedPage from "./pages/ArchivedPage";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/archived" element={<NoteArchived />} />
+          <Route path="/archived" element={<ArchivedPage />} />
           <Route path="/notes/new" element={<AddPage />} />
           <Route path="/notes/:id" element={<DetailPage />} />
           <Route path="*" element={<ErrorPage />} />

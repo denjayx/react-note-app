@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -85,5 +86,12 @@ export class DetailPage extends Component {
     );
   }
 }
+
+DetailPage.propTypes = {
+  id: PropTypes.string.isRequired,
+  onArchive: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onUnarchive: PropTypes.func.isRequired,
+};
 
 export default DetailPageWrapper;

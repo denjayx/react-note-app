@@ -1,5 +1,6 @@
-import { BsFileEarmarkCheckFill } from "react-icons/bs";
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { BsFileEarmarkCheckFill } from "react-icons/bs";
 import { addNote } from "../utils/local-data";
 import { useNavigate } from "react-router-dom";
 
@@ -70,5 +71,9 @@ export class AddPage extends Component {
     );
   }
 }
+
+AddPage.propTypes = {
+  onNoteAdd: PropTypes.func.isRequired,
+};
 
 export default AddPageWrapper;

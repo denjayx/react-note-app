@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import NoteItem from "./NoteItem";
 
@@ -9,6 +10,10 @@ const NoteList = ({ notes }) => {
       ))}
     </div>
   );
+};
+
+NoteList.propTypes = {
+  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default NoteList;

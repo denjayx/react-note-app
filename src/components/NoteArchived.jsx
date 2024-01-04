@@ -1,23 +1,10 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { getArchivedNotes } from "../utils/local-data";
 import { NavLink } from "react-router-dom";
 import NoteList from "../components/NoteList";
 import { BiNote } from "react-icons/bi";
-import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
-
-function NoteArchivedWrapper() {
-  const [searchParam, setSearchParam] = useSearchParams();
-  const keyword = searchParam.get("keyword");
-
-  function changeSearchParam(keyword) {
-    setSearchParam({ keyword });
-  }
-
-  return (
-    <NoteArchived defaultKeyword={keyword} keywordChange={changeSearchParam} />
-  );
-}
 
 export class NoteArchived extends Component {
   constructor(props) {
@@ -38,14 +25,12 @@ export class NoteArchived extends Component {
 
     this.props.keywordChange(keyword);
   };
-
   render() {
     const notes = this.state.notes.filter((note) => {
       return note.title
         .toLowerCase()
         .includes(this.state.keyword.toLowerCase());
     });
-
     return (
       <section>
         <SearchBar
@@ -72,4 +57,4 @@ export class NoteArchived extends Component {
   }
 }
 
-export default NoteArchivedWrapper;
+export default NoteArchived;

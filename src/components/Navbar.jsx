@@ -1,4 +1,3 @@
-import { BiNote } from "react-icons/bi";
 import React from "react";
 import { BsFillArchiveFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
