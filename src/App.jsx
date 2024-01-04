@@ -1,17 +1,21 @@
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable react/no-unescaped-entities */
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import AddPage from './pages/AddPage';
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import AddPage from "./pages/AddPage";
+import ArchivedPage from "./pages/ArchivedPage";
+import DetailPage from "./pages/DetailPage";
 
 function App() {
   return (
     <section>
       <header className="container py-6 lg:py-8">
         <nav className="flex justify-between items-center">
-          <h1 className="text-primary-50 text-3xl font-bold">Denjay's Note</h1>
+          <Link to="/">
+            <h1 className="text-primary-50 text-3xl font-bold">
+              Denjay's Note
+            </h1>
+          </Link>
           <Navbar />
         </nav>
       </header>
@@ -19,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/add" element={<AddPage />} />
+          <Route path="/archived" element={<ArchivedPage />} />
+          <Route path="/notes/:id" element={<DetailPage />} />
         </Routes>
       </main>
     </section>
