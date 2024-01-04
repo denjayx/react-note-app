@@ -55,11 +55,11 @@ export class HomePage extends Component {
           {notes.length !== 0 ? (
             <NoteList notes={notes} />
           ) : (
-            <p>Tidak ada catatan</p>
+            <p>Tidak ada catatan aktif</p>
           )}
         </div>
         <NavLink
-          to="/add"
+          to="/notes/new"
           className="flex items-center text-lg py-2 px-4 gap-2 fixed bottom-12 right-4 md:right-8 lg:right-16 xl:right-40 bg-primary-900 hover:bg-primary-950 duration-300 border border-primary-400 rounded-xl"
         >
           <span>Catatan Baru</span>

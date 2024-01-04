@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-family: 'Inter', sans-serif;
+}
+
 .editable:empty:before {
   content: attr(data-placeholder);
   color: rgb(107 114 128);
