@@ -19,7 +19,11 @@ export class HomePage extends Component {
         <SearchBar />
         <h2 className="text-2xl mt-8">Catatan Aktif</h2>
         <div className="mt-8">
-          <NoteList notes={this.state.notes} />
+          {this.state.notes.length !== 0 ? (
+            <NoteList notes={this.state.notes} />
+          ) : (
+            <p>Tidak ada catatan</p>
+          )}
         </div>
         <NavLink
           to="/add"

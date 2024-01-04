@@ -17,10 +17,10 @@ export class NoteArchived extends Component {
       <section>
         <h2 className="text-2xl mt-8">Arsip Catatan</h2>
         <div className="mt-8">
-          {this.state.notes.length === 0 ? (
-            <p>Tidak ada catatan diarsipkan</p>
-          ) : (
+          {this.state.notes.length !== 0 ? (
             <NoteList notes={this.state.notes} />
+          ) : (
+            <p>Tidak ada catatan diarsipkan</p>
           )}
         </div>
         <NavLink

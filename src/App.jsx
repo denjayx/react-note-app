@@ -8,7 +8,7 @@ import DetailPage from "./pages/DetailPage";
 
 function App() {
   return (
-    <section>
+    <section className="min-h-screen">
       <header className="container py-6 lg:py-8">
         <nav className="flex justify-between items-center">
           <Link to="/">

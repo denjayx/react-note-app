@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.editable:empty:before {
+  content: attr(data-placeholder);
+  color: rgb(107 114 128);
+}

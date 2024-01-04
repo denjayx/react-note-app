@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 import { showFormattedDate } from "../utils";
 
 const NoteDetail = ({ title, body, createdAt }) => {
@@ -8,7 +9,7 @@ const NoteDetail = ({ title, body, createdAt }) => {
       <span className="block text-primary-200/50">
         {showFormattedDate(createdAt)}
       </span>
-      <p>{body}</p>
+      <p>{parse(body)}</p>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 import { showFormattedDate } from "../utils";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,7 @@ const NoteItem = ({ id, title, createdAt, body }) => {
       <span className="text-primary-200/50">
         {showFormattedDate(createdAt)}
       </span>
-      <p>{body}</p>
+      <p>{parse(body)}</p>
     </Link>
   );
 };
