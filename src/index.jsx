@@ -1,7 +1,13 @@
 import React from "react";
-import {createRoot} from "react-dom/client";
-import "./styles/style.css";
-import NoteApp from "./components/NoteApp";
+import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./styles/index.css";
 
-const root = createRoot(document.getElementById("root"));
-root.render(<NoteApp />);
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </BrowserRouter>
+);

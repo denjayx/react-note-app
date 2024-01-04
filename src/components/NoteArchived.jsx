@@ -1,13 +1,33 @@
-import React from "react";
-import NoteItem from "./NoteItem";
+// import React, { Component } from "react";
+// import { getArchivedNotes } from "../utils/local-data";
+// import { NavLink } from "react-router-dom";
+// import NoteList from "./NoteList";
 
-const NoteArchived = ({notes, showFormattedDate, onDelete, onArchive}) => {
-	return (
-		<div>
-			<h2>Catatan Diarsipkan</h2>
-			<div className="notes-list">{notes.filter((note) => note.archived).length === 0 ? <p>Tidak ada catatan diarsipkan</p> : notes.filter((note) => note.archived).map((note) => <NoteItem className="notes-item" key={note.id} {...note} showFormattedDate={showFormattedDate} onDelete={onDelete} onArchive={onArchive} />)}</div>
-		</div>
-	);
-};
+// export class NoteArchived extends Component {
+//   constructor(props) {
+//     super(props);
 
-export default NoteArchived;
+//     this.state = {
+//       archivedNotes: getArchivedNotes(),
+//     };
+//   }
+//   render() {
+//     return (
+//       <section>
+//         <h2 className="text-2xl mt-8">Catatan Aktif</h2>
+//         <div className="mt-8">
+//           <NoteList notes={this.state.notes} />
+//         </div>
+//         <NavLink
+//           to="/add"
+//           className="flex items-center text-lg py-2 px-4 gap-2 fixed bottom-12 right-4 md:right-8 lg:right-16 xl:right-40 bg-primary-900 hover:bg-primary-950 duration-300 border border-primary-400 rounded-xl"
+//         >
+//           <span>Catatan Baru</span>
+//           <BiNote size={24} />
+//         </NavLink>
+//       </section>
+//     );
+//   }
+// }
+
+// export default NoteArchived;

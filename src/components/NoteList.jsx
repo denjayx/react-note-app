@@ -1,13 +1,14 @@
 import React from "react";
 import NoteItem from "./NoteItem";
 
-const NoteList = ({notes, showFormattedDate, onDelete, onArchive}) => {
-	return (
-		<>
-			<h2>Catatan Aktif</h2>
-			<div className="notes-list">{notes.filter((note) => !note.archived).length === 0 ? <p>Tidak ada catatan</p> : notes.filter((note) => !note.archived).map((note) => <NoteItem className="notes-item" key={note.id} {...note} showFormattedDate={showFormattedDate} onDelete={onDelete} onArchive={onArchive} />)}</div>
-		</>
-	);
+const NoteList = ({ notes }) => {
+  return (
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-6">
+      {notes.map((note) => (
+        <NoteItem key={note.id} {...note} />
+      ))}
+    </div>
+  );
 };
 
 export default NoteList;

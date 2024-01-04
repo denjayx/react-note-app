@@ -1,24 +1,18 @@
 import React from "react";
+import parse from "html-react-parser";
+import { showFormattedDate } from "../utils";
+import { Link } from "react-router-dom";
 
-const NoteItem = ({id, title, body, createdAt, archived, showFormattedDate, onDelete, onArchive}) => {
-	const formattedDate = showFormattedDate(createdAt);
-	return (
-		<div className="note-item">
-			<div className="note-item__content">
-				<div className="note-item__title">{title}</div>
-				<div className="note-item__date">{formattedDate}</div>
-				<p className="note-item__body">{body}</p>
-			</div>
-			<div className="note-item__action">
-				<button onClick={() => onDelete(id)} className="note-item__delete-button">
-					Delete
-				</button>
-				<button onClick={() => onArchive(id)} className="note-item__archive-button">
-					{archived ? "Batalkan Arsip" : "Arsipkan"}
-				</button>
-			</div>
-		</div>
-	);
+const NoteItem = ({ id, title, createdAt, body }) => {
+  return (
+    <Link to={`/notes/${id}`}>
+      <h4 className="text-2xl font-bold">{title}</h4>
+      <span className="text-primary-200/50">
+        {showFormattedDate(createdAt)}
+      </span>
+      <p>{parse(body)}</p>
+    </Link>
+  );
 };
 
 export default NoteItem;
