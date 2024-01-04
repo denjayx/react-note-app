@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { archiveNote, getNote, unarchiveNote } from "../utils/local-data";
+import {
+  archiveNote,
+  deleteNote,
+  getNote,
+  unarchiveNote,
+} from "../utils/local-data";
 import { MdArchive } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { MdUnarchive } from "react-icons/md";
@@ -13,15 +18,27 @@ function DetailPageWrapper() {
 
   const onArchive = () => {
     archiveNote(id);
-    navigate("/");
+    navigate(-1);
   };
 
   const onUnarchive = () => {
     unarchiveNote(id);
-    navigate("/");
+    navigate(-1);
   };
 
-  return <DetailPage id={id} onArchive={onArchive} onUnarchive={onUnarchive} />;
+  const onDelete = () => {
+    deleteNote(id);
+    navigate(-1);
+  };
+
+  return (
+    <DetailPage
+      id={id}
+      onArchive={onArchive}
+      onUnarchive={onUnarchive}
+      onDelete={onDelete}
+    />
+  );
 }
 
 export class DetailPage extends Component {
@@ -34,13 +51,14 @@ export class DetailPage extends Component {
   }
 
   render() {
-    const { onArchive, onUnarchive } = this.props;
+    const { onArchive, onUnarchive, onDelete } = this.props;
     return (
       <section>
         <NoteDetail {...this.state.note} />
         <div className="flex flex-col items-end gap-2 fixed bottom-12 right-4 md:right-8 lg:right-16 xl:right-40">
           <button
             type="button"
+            onClick={onDelete}
             className="flex items-center w-fit text-lg py-2 px-4 gap-2 bg-red-800 hover:bg-red-950 duration-300 border border-red-400 rounded-xl"
           >
             Hapus <MdDelete size={24} />
