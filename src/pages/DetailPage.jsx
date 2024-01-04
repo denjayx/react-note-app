@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { useParams } from "react-router-dom";
-import { archiveNote, getNote } from "../utils/local-data";
+import { useNavigate } from "react-router-dom";
+import { archiveNote, getNote, unarchiveNote } from "../utils/local-data";
 import { MdArchive } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { MdUnarchive } from "react-icons/md";
 import NoteDetail from "../components/NoteDetail";
 
 function DetailPageWrapper() {
@@ -15,7 +16,12 @@ function DetailPageWrapper() {
     navigate("/");
   };
 
-  return <DetailPage id={id} onArchive={onArchive} />;
+  const onUnarchive = () => {
+    unarchiveNote(id);
+    navigate("/");
+  };
+
+  return <DetailPage id={id} onArchive={onArchive} onUnarchive={onUnarchive} />;
 }
 
 export class DetailPage extends Component {
@@ -28,7 +34,7 @@ export class DetailPage extends Component {
   }
 
   render() {
-    const { onArchive } = this.props;
+    const { onArchive, onUnarchive } = this.props;
     return (
       <section>
         <NoteDetail {...this.state.note} />
@@ -39,13 +45,23 @@ export class DetailPage extends Component {
           >
             Hapus <MdDelete size={24} />
           </button>
-          <button
-            type="button"
-            onClick={onArchive}
-            className="flex items-center w-fit text-lg py-2 px-4 gap-2 bg-primary-900 hover:bg-primary-950 duration-300 border border-primary-400 rounded-xl"
-          >
-            Arsipkan <MdArchive size={24} />
-          </button>
+          {!this.state.note.archived ? (
+            <button
+              type="button"
+              onClick={onArchive}
+              className="flex items-center w-fit text-lg py-2 px-4 gap-2 bg-primary-900 hover:bg-primary-950 duration-300 border border-primary-400 rounded-xl"
+            >
+              Arsipkan <MdArchive size={24} />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onUnarchive}
+              className="flex items-center w-fit text-lg py-2 px-4 gap-2 bg-primary-900 hover:bg-primary-950 duration-300 border border-primary-400 rounded-xl"
+            >
+              Buka Arsip <MdUnarchive size={24} />
+            </button>
+          )}
         </div>
       </section>
     );
