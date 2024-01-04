@@ -4,7 +4,7 @@ import NoteArchived from "../components/NoteArchived";
 
 const ArchivedPage = () => {
   const [searchParam, setSearchParam] = useSearchParams();
-  const keyword = searchParam.get("keyword");
+  const keyword = searchParam.get("keyword") || "";
 
   function changeSearchParam(keyword) {
     setSearchParam({ keyword });

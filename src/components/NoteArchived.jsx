@@ -57,4 +57,9 @@ export class NoteArchived extends Component {
   }
 }
 
+NoteArchived.propTypes = {
+  defaultKeyword: PropTypes.string.isRequired,
+  keywordChange: PropTypes.func.isRequired,
+};
+
 export default NoteArchived;
