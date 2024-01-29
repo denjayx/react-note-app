@@ -7,9 +7,33 @@ import DetailPage from "./pages/DetailPage";
 import ErrorPage from "./pages/ErrorPage";
 import ArchivedPage from "./pages/ArchivedPage";
 import {useState} from "react";
+import {useEffect} from "react";
+import {getUserLogged, putAccessToken} from "./utils/api";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
 	const [authedUser, setAuthedUser] = useState(null);
+
+	useEffect(() => {
+		const fetchedUser = async () => {
+			const {data} = await getUserLogged();
+			setAuthedUser(data);
+		};
+		fetchedUser();
+	}, []);
+
+	const onLoginSuccess = async ({accessToken}) => {
+		putAccessToken(accessToken);
+		const {data} = await getUserLogged();
+		setAuthedUser(data);
+	};
+
+	const onLogout = () => {
+		setAuthedUser(null);
+		putAccessToken("");
+	};
+
 	if (authedUser === null) {
 		return (
 			<section className="min-h-screen">
@@ -18,12 +42,11 @@ function App() {
 						<Link to="/">
 							<h1 className="text-primary-50 text-3xl font-bold">Catatan Denjay</h1>
 						</Link>
-						<Navbar />
 					</nav>
 				</header>
 				<main className="container">
 					<Routes>
-						<Route path="/*" element={<LoginPage />} />
+						<Route path="/*" element={<LoginPage loginSuccess={onLoginSuccess} />} />
 						<Route path="/register" element={<RegisterPage />} />
 					</Routes>
 				</main>
@@ -38,7 +61,7 @@ function App() {
 					<Link to="/">
 						<h1 className="text-primary-50 text-3xl font-bold">Denjay's Note</h1>
 					</Link>
-					<Navbar />
+					<Navbar logout={onLogout} />
 				</nav>
 			</header>
 			<main className="container">
