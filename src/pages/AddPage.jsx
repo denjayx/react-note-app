@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {BsFileEarmarkCheckFill} from "react-icons/bs";
-import {addNote} from "../utils/local-data";
 import {useNavigate} from "react-router-dom";
+import {addNote} from "../utils/api";
 
 const AddPage = () => {
 	const [noteInput, setNoteInput] = useState({

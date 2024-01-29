@@ -2,11 +2,11 @@ import React from "react";
 import {useEffect} from "react";
 import {useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {getArchivedNotes} from "../utils/local-data";
 import SearchBar from "./SearchBar";
 import {NavLink} from "react-router-dom";
 import {BiNote} from "react-icons/bi";
 import NoteList from "./NoteList";
+import {getArchivedNotes} from "../utils/api";
 
 const NoteArchived = () => {
 	const [searchParam, setSearchParam] = useSearchParams();
@@ -16,8 +16,11 @@ const NoteArchived = () => {
 	});
 
 	useEffect(() => {
-		const fetchedArchivedNotes = getArchivedNotes();
-		setNotes(fetchedArchivedNotes);
+		const fetchedArchivedNotes = async () => {
+			const {data} = await getArchivedNotes();
+			setNotes(data);
+		};
+		fetchedArchivedNotes();
 	}, []);
 
 	function onKeywordChangeHandler(keyword) {

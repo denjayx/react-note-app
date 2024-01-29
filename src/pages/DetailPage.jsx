@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import NoteDetail from "../components/NoteDetail";
 import {useNavigate} from "react-router-dom";
-import {getNote} from "../utils/api";
+import {archiveNote, deleteNote, getNote, unarchiveNote} from "../utils/api";
 
 function DetailPage() {
 	const [note, setNote] = useState(null);
@@ -18,18 +18,18 @@ function DetailPage() {
 		fetchedNoteDetail();
 	}, []);
 
-	const onArchive = () => {
-		archiveNote(id);
+	const onArchive = async () => {
+		await archiveNote(id);
 		navigate(-1);
 	};
 
-	const onUnarchive = () => {
-		unarchiveNote(id);
+	const onUnarchive = async () => {
+		await unarchiveNote(id);
 		navigate(-1);
 	};
 
-	const onDelete = () => {
-		deleteNote(id);
+	const onDelete = async () => {
+		await deleteNote(id);
 		navigate(-1);
 	};
 
