@@ -1,9 +1,9 @@
 import {MdArchive, MdUnarchive, MdDelete} from "react-icons/md";
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {archiveNote, deleteNote, getNote, unarchiveNote} from "../utils/local-data";
 import NoteDetail from "../components/NoteDetail";
 import {useNavigate} from "react-router-dom";
+import {getNote} from "../utils/api";
 
 function DetailPage() {
 	const [note, setNote] = useState(null);
@@ -11,9 +11,12 @@ function DetailPage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const fetchedNote = getNote(id);
-		setNote(fetchedNote);
-	}, [id]);
+		const fetchedNoteDetail = async () => {
+			const {data} = await getNote(id);
+			setNote(data);
+		};
+		fetchedNoteDetail();
+	}, []);
 
 	const onArchive = () => {
 		archiveNote(id);

@@ -1,12 +1,12 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import NoteList from "../components/NoteList";
-import {getActiveNotes} from "../utils/local-data";
 import {NavLink} from "react-router-dom";
 import {BiNote} from "react-icons/bi";
 import {useSearchParams} from "react-router-dom";
 import {useState} from "react";
 import {useEffect} from "react";
+import {getActiveNotes} from "../utils/api";
 
 function HomePage() {
 	const [searchParam, setSearchParam] = useSearchParams();
@@ -16,7 +16,11 @@ function HomePage() {
 	});
 
 	useEffect(() => {
-		setNotes(getActiveNotes());
+		const fetchedActivedNotes = async () => {
+			const {data} = await getActiveNotes();
+			setNotes(data);
+		};
+		fetchedActivedNotes();
 	}, []);
 
 	function onKeywordChangeHandler(keyword) {
